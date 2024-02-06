@@ -2,13 +2,32 @@ const http = require("http");
 const express = require("express");
 const path = require("path");
 const app = express();
+const cors = require("cors");
 const { logger } = require("./middleware/logEvents");
+const { errorHanlder } = require("./middleware/errorHanlder");
 
 // port number
 const PORT = process.env.PORT || 3500;
 
 // custom middleware
 app.use(logger);
+
+// making whitelist of applications that can access our beckend
+const whitelist = ["https://www.google.com", "http:localhost:5500"];
+
+const corsOptions = {
+	origin: (origin, callback) => {
+		if (whitelist.includes(origin) || !origin) {
+			callback(null, true);
+		} else {
+			callback(new Error("Not allowed by CORS"));
+		}
+	},
+	optionsSuccessStatus: 200,
+};
+
+// cross origin resource sharing
+app.use(cors(corsOptions));
 
 // built in middlewares
 
@@ -66,9 +85,22 @@ app.get("./old-page(.html)?", (req, res) => {
 	res.redirect(301, "/new-page.html");
 });
 
-app.get("/*", (req, res) => {
-	res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+// app.get("/*", (req, res) => {
+// 	res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+// });
+
+app.all("*", (req, res) => {
+	res.status(404);
+	if (req.accepts("html")) {
+		res.sendFile(path.join(__dirname, "views", "index.html"));
+	} else if (req.accepts("json")) {
+		res.json({ error: "404 Not Found" });
+	} else {
+		res.type("txt").send("404 Not Found");
+	}
 });
+
+app.use(errorHanlder);
 
 // making server listen
 app.listen(PORT, () => {
