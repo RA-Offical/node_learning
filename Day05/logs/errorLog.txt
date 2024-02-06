@@ -1,0 +1,8 @@
+20240206	17:14:52	efbcc1ca-8c6f-467d-9f89-2a66b3247b5c	Error --- Not allowed by CORS
+20240207	02:45:22	af8ae97c-962e-49a1-ba5b-d1aaa644f7a4	Error --- Cannot set headers after they are sent to the client
+20240207	02:45:57	821ce9f8-9afb-4b02-aa17-af1199c24540	Error --- Cannot set headers after they are sent to the client
+20240207	02:47:25	a9e50fcc-607e-48e7-b141-e6cd6bfd0a56	Error --- Cannot set headers after they are sent to the client
+20240207	02:49:08	3e22108e-3686-4314-a8ec-5a7d8c3f6ad6	Error --- Cannot set headers after they are sent to the client
+20240207	02:49:41	e741255b-9c3f-4dcb-b515-ff9d86e94122	Error --- Cannot set headers after they are sent to the client
+20240207	02:50:06	e6a59fe2-c487-44a2-ae92-da577154925f	Error --- Cannot set headers after they are sent to the client
+20240207	02:52:37	9ab5d0aa-9371-47d4-a063-b2c28e6c2c61	ReferenceError --- uuid is not defined
