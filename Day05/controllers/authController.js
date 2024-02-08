@@ -4,8 +4,11 @@ const usersDB = {
 		this.users = data;
 	},
 };
-
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const fileSystemPromises = require("fs").promises;
+const path = require("path");
 
 async function handleLogin(req, res) {
 	const { username, password } = req.body;
@@ -13,21 +16,46 @@ async function handleLogin(req, res) {
 		return res.status(400).json({ message: "Username and password is required" });
 	}
 
-	const user = usersDB.users.find((user) => user.username === username);
+	const foundUser = usersDB.users.find((user) => user.username === username);
 
-	if (!user) {
+	if (!foundUser) {
 		// unauthorized
 		return res.status(401).json({ message: "User not found" });
 	}
 
 	// evaluate password
-	const match = await bcrypt.compare(password, user.password);
-
+	const match = await bcrypt.compare(password, foundUser.password);
 	if (match) {
-		return res.json({ success: "Logged in successfully!" });
+		// create JWTs
+		const accessToken = jwt.sign(
+			{ username: foundUser.username },
+			process.env.ACCESS_TOKEN_SECRET,
+			{ expiresIn: "30s" }
+		);
+		const refreshToken = jwt.sign(
+			{ username: foundUser.username },
+			process.env.REFRESH_TOKEN_SECRET,
+			{ expiresIn: "1d" }
+		);
+		// Saving refreshToken with current user
+		const otherUsers = usersDB.users.filter((person) => person.username !== foundUser.username);
+		const currentUser = { ...foundUser, refreshToken };
+		usersDB.setUsers([...otherUsers, currentUser]);
+		await fileSystemPromises.writeFile(
+			path.join(__dirname, "..", "model", "users.json"),
+			JSON.stringify(usersDB.users)
+		);
+		res.cookie("jwt", refreshToken, {
+			httpOnly: true,
+			sameSite: "None",
+			origin: "http://localhost:3500",
+			secure: false,
+			maxAge: 24 * 60 * 60 * 1000,
+		});
+		res.json({ accessToken });
+	} else {
+		res.sendStatus(401);
 	}
-
-	res.status(401).json({ message: "Incorrect password" });
 }
 
 module.exports = { handleLogin };

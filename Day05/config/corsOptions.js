@@ -1,5 +1,5 @@
 // making whitelist of applications that can access our beckend
-const whitelist = ["https://www.google.com", "http:localhost:5500"];
+const whitelist = ["https://www.google.com", "http://localhost:3500"];
 
 const corsOptions = {
 	origin: (origin, callback) => {

@@ -46,10 +46,12 @@ async function handleLogin(req, res) {
 			JSON.stringify(usersDB.users)
 		);
 		res.cookie("jwt", refreshToken, {
-			http0nly: true,
-			sameSite: "None",
-			secure: false,
-			maxAge: 24 * 60 * 60 * 1000,
+			httpOnly: true,
+			secure: false, // Set to true for HTTPS in production
+			sameSite: "Lax", // Consider your usage and adjust if needed
+			domain: "localhost", // Adjust for your actual domain in production
+			path: "/", // Implicitly set unless you need a specific path
+			maxAge: 24 * 60 * 60 * 1000, // 24 hours
 		});
 		res.json({ accessToken });
 	} else {

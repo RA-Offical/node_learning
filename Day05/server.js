@@ -3,6 +3,8 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const cors = require("cors");
+const verifyJWT = require("./middleware/verifyJWT");
+const cookieParser = require("cookie-parser");
 const corsOptions = require("./config/corsOptions");
 const { logger } = require("./middleware/logEvents");
 const { errorHanlder } = require("./middleware/errorHanlder");
@@ -21,11 +23,17 @@ app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
 // for handling json data submission
 app.use(express.json());
+// middleware for cookies
+app.use(cookieParser());
+
 // for providing access to static files. e.g. .css,.jpg,.png
 app.use("/", express.static(path.join(__dirname, "/public")));
+// routes
 app.use("/", require("./routes/root"));
 app.use("/register", require("./routes/register"));
 app.use("/auth", require("./routes/auth"));
+app.use("/refresh", require("./routes/refresh"));
+app.use(verifyJWT);
 app.use("/employees", require("./routes/api/employees"));
 
 app.all("*", (req, res) => {

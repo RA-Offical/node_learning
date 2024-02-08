@@ -1,1 +1,7 @@
-[{"username":"rashid","password":"$2b$10$tTbUiT8rV7VhtLrop/SO0OUS1eZ4Cbnv.CssojLphNauzbvgPbTfe"}]
+[
+	{
+		"username": "rashid",
+		"password": "$2b$10$tTbUiT8rV7VhtLrop/SO0OUS1eZ4Cbnv.CssojLphNauzbvgPbTfe",
+		"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhc2hpZCIsImlhdCI6MTcwNzM0MzA4NiwiZXhwIjoxNzA3NDI5NDg2fQ.A7BLCvhFWg-yLzZ81i5rU4ItKfcIk91GfURBwRv8KZg"
+	}
+]
