@@ -8,12 +8,15 @@ const cookieParser = require("cookie-parser");
 const corsOptions = require("./config/corsOptions");
 const { logger } = require("./middleware/logEvents");
 const { errorHanlder } = require("./middleware/errorHanlder");
+const credentials = require("./controllers/credentials");
 
 // port number
 const PORT = process.env.PORT || 3500;
 
 // custom middleware
 app.use(logger);
+
+app.use(credentials);
 
 // cross origin resource sharing
 app.use(cors(corsOptions));

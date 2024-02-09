@@ -1,7 +1,1 @@
-[
-	{
-		"username": "izzah",
-		"password": "$2b$10$QPrk5N3Wa3l60lnWiAeia.2Osh9m1VV2vC3FGkSHkNNHH4H4TcIm6",
-		"refreshToken": ""
-	}
-]
+[{"username":"izzah","password":"$2b$10$QPrk5N3Wa3l60lnWiAeia.2Osh9m1VV2vC3FGkSHkNNHH4H4TcIm6","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Iml6emFoIiwiaWF0IjoxNzA3NTAzMDY3LCJleHAiOjE3MDc1ODk0Njd9.SQH_j7GDwEoO0Tep_r0PfOl87LWGYUbSKgdroADbPFM"}]

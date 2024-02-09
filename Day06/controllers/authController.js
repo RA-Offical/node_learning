@@ -48,7 +48,7 @@ async function handleLogin(req, res) {
 		res.cookie("jwt", refreshToken, {
 			httpOnly: true,
 			secure: false, // Set to true for HTTPS in production
-			sameSite: "Lax", // Consider your usage and adjust if needed
+			sameSite: "None", // Consider your usage and adjust if needed
 			domain: "localhost", // Adjust for your actual domain in production
 			path: "/", // Implicitly set unless you need a specific path
 			maxAge: 24 * 60 * 60 * 1000, // 24 hours

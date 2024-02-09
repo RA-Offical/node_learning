@@ -1,9 +1,8 @@
-// making whitelist of applications that can access our beckend
-const whitelist = ["https://www.google.com", "http://localhost:3500"];
-
+// making allowedOrigins of applications that can access our beckend
+const allowedOrigins = require("./allowedOrigins");
 const corsOptions = {
 	origin: (origin, callback) => {
-		if (whitelist.includes(origin) || !origin) {
+		if (allowedOrigins.includes(origin) || !origin) {
 			callback(null, true);
 		} else {
 			callback(new Error("Not allowed by CORS"));

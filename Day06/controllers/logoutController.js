@@ -21,7 +21,12 @@ async function handleLogout(req, res) {
 	const foundUser = usersDB.users.find((user) => user.refreshToken === refreshToken);
 
 	if (!foundUser) {
-		res.clearCookie("jwt", { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+		res.clearCookie("jwt", {
+			httpOnly: true,
+			secure: false,
+			sameSite: "None",
+			domain: "localhost",
+		});
 		return res.sendStatus(204);
 	}
 
@@ -35,7 +40,7 @@ async function handleLogout(req, res) {
 		path.join(__dirname, "..", "model", "users.json"),
 		JSON.stringify(usersDB.users)
 	);
-	res.clearCookie("jwt", { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+	res.clearCookie("jwt", { httpOnly: true, secure: false, sameSite: "None", domain: "localhost" });
 	res.sendStatus(204);
 }
 
